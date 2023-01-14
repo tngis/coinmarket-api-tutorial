@@ -1,38 +1,39 @@
 import axios from "axios";
 import Table from "./components/table";
 import { useQuerySubscription } from 'react-datocms'
-// export const getStaticProps = async () => {
 
-//   const res = await axios.get('https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest', {
-//     headers: {
-//       'X-CMC_PRO_API_KEY': '576d6352-5a38-4283-8166-34a511346eaf',
-//     },
-//   });
+export const getStaticProps = async () => {
 
-//   return {
-//     props: { lists: res.data.data }
-//   }
-// }
+  const res = await axios.get('https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest', {
+    headers: {
+      'X-CMC_PRO_API_KEY': '576d6352-5a38-4283-8166-34a511346eaf',
+    },
+  });
 
-export const getServerSideProps = async () => {
-
-  const res = await fetch(
-    'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
-    {
-      method: 'GET',
-      headers: {
-        'X-CMC_PRO_API_KEY': '576d6352-5a38-4283-8166-34a511346eaf',
-      }
-    }
-  );
-
-  const data = await res.json();
-
-  console.log(data.data)
-
-  return { props: { lists: data.data } }
-
+  return {
+    props: { lists: res.data.data }
+  }
 }
+
+// export const getServerSideProps = async () => {
+
+//   const res = await fetch(
+//     'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
+//     {
+//       method: 'GET',
+//       headers: {
+//         'X-CMC_PRO_API_KEY': '576d6352-5a38-4283-8166-34a511346eaf',
+//       }
+//     }
+//   );
+
+//   const data = await res.json();
+
+//   console.log(data.data)
+
+//   return { props: { lists: data.data } }
+
+// }
 
 const numberFormat = (value) =>
   new Intl.NumberFormat('ja-JP', {
@@ -51,8 +52,7 @@ const precentFormat = (value) =>
   }).format(value)
 
 export default function Home({ lists }) {
-  console.log(lists)
-  console.log()
+
   return (
 
     <>
