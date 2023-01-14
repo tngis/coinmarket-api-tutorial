@@ -11,7 +11,8 @@ export const getStaticProps = async () => {
   });
 
   return {
-    props: { lists: res.data.data }
+    props: { lists: res.data.data },
+    revalidate: 10,
   }
 }
 
