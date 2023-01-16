@@ -1,6 +1,8 @@
 import axios from "axios";
 import Table from "./components/table";
 import { useQuerySubscription } from 'react-datocms'
+import Image from "next/image";
+import Navbar from "./components/Navbar";
 
 export const getStaticProps = async () => {
 
@@ -10,9 +12,11 @@ export const getStaticProps = async () => {
     },
   });
 
+  console.log('build')
+
   return {
     props: { lists: res.data.data },
-    revalidate: 10,
+    revalidate: 20,
   }
 }
 
@@ -57,14 +61,20 @@ export default function Home({ lists }) {
   return (
 
     <>
-      <div className="bg-[#282A3A]">
+      <div className="">
+        <Navbar />
+        <div className='fixed -z-10 w-100%  h-screen top-0 right-0 left-0 bottom-0'>
+          <Image
+            className="grayscale-0 contrast-50"
+            src='/2.jpg'
+            layout='fill'
+            objectFit='cover'
+          />
+        </div>
         <div className="container mx-auto py-20">
-          <h1 className="text-gray-100 text-3xl py-5">
-            Cryptocurrencies
-          </h1>
-          <div className="border border-gray-400 rounded-xl">
-            <table className="min-w-full table-auto">
-              <thead className=" text-gray-100 h-16 border-b-2 border-gray-400">
+          <div className="border-0 border-gray-400 rounded-xl overflow-hidden">
+            <table className="min-w-full table-auto bg-black/60 backdrop-blur-sm">
+              <thead className=" text-gray-100 h-16 border-b-2 border-gray-400 text-sm">
                 <tr className="py-10">
                   <th className="pr-20">
                     <span>#</span>
@@ -102,7 +112,7 @@ export default function Home({ lists }) {
                       {list.cmc_rank}
                     </td>
                     <td className="py-4 border-t border-gray-700 text-start pl-16 font-semibold">
-                      {list.name}
+                      <a className="cursor-pointer hover:text-gray-400">{list.name}</a>
                     </td>
                     <td className="py-4 border-t border-gray-700">
                       {numberFormat(list.quote.USD.price)}
